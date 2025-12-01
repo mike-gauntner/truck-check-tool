@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Virginia Ambulance Truck Inspection Tool - Complete and manage ambulance inspection checklists">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="author" content="Virginia Ambulance Service">
+    <meta property="og:title" content="Virginia Ambulance Truck Inspection">
+    <meta property="og:description" content="Complete and manage ambulance inspection checklists">
+    <meta property="og:type" content="website">
+    <title>Virginia Ambulance Truck Inspection</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚑</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js" integrity="sha384-WlgD02h8MN9icrgEOX8hj4xb9fs/MgaMecdLh5G2cdgDLPn1DNJSm6o2/MMVPt7m" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Virginia Ambulance Inspection</h1>
+            <div class="header-actions">
+                <div class="unit-info">
+                    <div class="unit-info-row">
+                        <div class="form-group">
+                            <label for="unit-number">Unit # <span class="sr-only">(required)</span></label>
+                            <input type="text" id="unit-number" name="unit-number" placeholder="e.g., A101" required
+                                   aria-required="true" aria-describedby="unit-number-help">
+                            <small id="unit-number-help" class="form-help">Enter the ambulance unit number</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inspector-name">Inspector</label>
+                            <input type="text" id="inspector-name" name="inspector-name" placeholder="Your name" required
+                                   aria-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="unit-info-row">
+                        <div class="date-display">
+                            <span class="material-icons" aria-hidden="true">event</span>
+                            <span id="current-date"></span>
+                        </div>
+                        
+                        <div class="timer-display" title="Inspection duration">
+                            <span class="material-icons" aria-hidden="true">timer</span>
+                            <span id="inspection-timer">00:00:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="print-actions">
+                    <button id="save-btn" type="button" class="btn" title="Save inspection" aria-label="Save inspection">
+                        <span class="material-icons" aria-hidden="true">save</span>
+                        <span>Save</span>
+                    </button>
+                    <button id="new-inspection-btn" type="button" class="btn btn-secondary" title="Start new inspection" aria-label="Start new inspection">
+                        <span class="material-icons" aria-hidden="true">add_circle</span>
+                        <span>New</span>
+                    </button>
+                    <button id="print-btn" type="button" class="btn" title="Print or save as PDF" aria-label="Print or save as PDF">
+                        <span class="material-icons" aria-hidden="true">print</span>
+                        <span>Print</span>
+                        <span class="sr-only">Print or Save as PDF</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="checklist">
+                <div id="checklist-sections">
+                    <!-- Sections will be populated by JavaScript -->
+                </div>
+                
+                <div class="checklist-actions">
+                    <!-- Action buttons have been moved to the header -->
+                </div>
+            </section>
+
+            <section id="saved-checks">
+                <h2>Saved Inspections</h2>
+                <div id="saved-checks-list">
+                    <!-- Saved checks will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for viewing saved inspections -->
+    <div id="inspection-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Inspection Details</h2>
+            <div id="modal-inspection-content">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <noscript>
+        <div class="no-js-warning" role="alert">
+            <p>JavaScript is required to use this application. Please enable JavaScript to continue.</p>
+        </div>
+    </noscript>
+    <script>
+        // Error handling for script loading
+        function handleScriptError(error) {
+            console.error('Script loading failed:', error);
+            // Show error to user
+            const container = document.querySelector('.container');
+            if (container) {
+                container.innerHTML = `
+                    <div class="error-container" role="alert">
+                        <h2>Application Error</h2>
+                        <p>Failed to load the application. Please try refreshing the page.</p>
+                        <p>If the problem persists, please contact support.</p>
+                        <button onclick="window.location.reload()" class="btn">
+                            <span class="material-icons" aria-hidden="true">refresh</span>
+                            Refresh Page
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Load app script
+        document.addEventListener('DOMContentLoaded', function() {
+            const script = document.createElement('script');
+            script.src = 'app.js';
+            script.async = true;
+            script.onload = function() {
+                if (typeof init === 'function') {
+                    init();
+                } else {
+                    handleScriptError(new Error('init function not found'));
+                }
+            };
+            script.onerror = handleScriptError;
+            document.body.appendChild(script);
+        });
+    </script>
+</body>
+</html>
