@@ -1,6 +1,6 @@
 # Truck Check Tool
 
-A responsive web application for managing transport EMS vehicle supplies. Equipt with features for creating checklists, tracking inspection history, and generating reports. Focuses on the
+A responsive web application for managing transport EMS vehicle supplies. Equipped with features for creating checklists, tracking inspection history, and generating reports. Focuses on the
 Virginia Administrative Code 12VAC5-31-860.
 
 ## Features
@@ -41,3 +41,4 @@ This project is licensed under the MIT License.
 ## Note for Employers
 
 This project is open source under the MIT License. I welcome any questions about the implementation or architecture during the interview process. Please feel free to explore the code and reach out with any inquiries.
+
